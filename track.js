@@ -11,26 +11,31 @@ var results = [];
 prompt('album_id: ')
     .then((val) => {
         results.push(val);
-        return prompt.multiline('song_id: ');
+        return prompt('song_id: ');
     })
     .then((val) => {
         results.push(val);
-        return prompt.multiline('duration: ');
+        return prompt('duration: ');
     })
     .then((val) => {
         results.push(val);
-        console.log('response:', result);
+        console.log('response:', results);
+        trackData();
+        prompt.done();
     })
     .catch(function rejected(err) {
         // console.log('error:', err.stack);
         prompt.finish();
     });
 
-var querry = `insert into album(album_id, song_id, duration) values(${results[0]}, ${results[1]},${results[2]})`;
-db.result(querry, results)
-    .then((result) => {
-        console.log(result);
-    }).catch((e) => {
-        console.error(e);
-    });
-pgp.end();
+function trackData() {
+    var track = { album_id: results[0], song_id: results[1], duration: results[2] }
+    var querry = `INSERT INTO track (album_id, song_id, duration) VALUES (${album_id}, ${song_id}},${duration})`;
+    db.result(querry, results)
+        .then((result) => {
+            console.log(result);
+        }).catch((e) => {
+            console.error(e);
+        });
+    pgp.end();
+}

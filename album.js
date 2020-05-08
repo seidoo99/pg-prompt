@@ -20,16 +20,17 @@ prompt('artist_id: ')
     .then((val) => {
         results.push(val);
         console.log('response:', results);
-        insertData();
+        albumData();
+        prompt.done();
     })
     .catch(function rejected(err) {
         console.log('error:', err.stack);
         prompt.finish();
-        prompt.done();
+
     });
 
 
-function insertData() {
+function albumData() {
     var album = { artistId: results[0], releaseYear: results[1], albumName: results[2] };
     var query = `INSERT INTO album (artist_id, release_year, album_name, ) VALUES (${artistId}, ${releaseYear},${albumName})`;
     db.result(query, album)
